@@ -1,4 +1,3 @@
-
 export function CheckDuplicatesIndex(inputArray) {
     const addressIndexes = {}; // Object to store address and their indexes
     const outputArray = [];
@@ -19,8 +18,6 @@ export function CheckDuplicatesIndex(inputArray) {
         }
     }
 
-    
-
     // Iterate through the object and create output entries for duplicates
     for (const address in addressIndexes) {
         if (addressIndexes[address].length > 1) {
@@ -32,7 +29,7 @@ export function CheckDuplicatesIndex(inputArray) {
             );
         }
     }
-    
+
     return { ...error, error_arr: outputArray, addressIndexes: addressIndexes };
 }
 
@@ -60,7 +57,6 @@ export function CheckValidAmount(array) {
     }
 }
 
-
 export function KeepFirstAddress(address_amount) {
     const uniqueAddresses = {};
     const resultArray = [];
@@ -72,8 +68,6 @@ export function KeepFirstAddress(address_amount) {
             resultArray.push(item);
         }
     }
-
-    
 
     return resultArray.join('\n');
 }
@@ -97,6 +91,6 @@ export function CombineAddress(inputArray) {
     for (const [address, balance] of addressMap.entries()) {
         combinedItems.push(`${address} ${balance}`);
     }
-    
-    return combinedItems;
+
+    return combinedItems.join('\n');
 }
