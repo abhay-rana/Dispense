@@ -1,0 +1,23 @@
+/* "base": for resetting the css and style the native elements */
+@tailwind base;
+/* "components": for style your own custom classes */
+@tailwind components;
+/* "utilities": for styling of the classes provided by the tailwind */
+@tailwind utilities;
+
+@layer components {
+    /* always set this like this html and body element */
+    html,
+    body {
+        background-color: #ffffff;
+        
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    #root {
+        height: 100vh;
+        width: 100%;
+    }
+  
+}
