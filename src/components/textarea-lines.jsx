@@ -1,9 +1,9 @@
-import React, { useEffect,  useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const TextAreaWithLineNumbers = React.forwardRef(
     ({ value, onChange }, reference) => {
         const [numberOfLines, setNumberOfLines] = useState(1);
-        const textareaReference = reference ;
+        const textareaReference = reference;
 
         const handleInput = () => {
             const lines = textareaReference.current.value.split('\n').length;
@@ -11,9 +11,9 @@ const TextAreaWithLineNumbers = React.forwardRef(
             onChange(textareaReference.current.value); // Call the onChange prop to update the parent component's state
         };
 
-        // useEffect(() => {
-        //     setText(value || ''); // Update the state when the value prop changes
-        // }, [value]);
+        useEffect(() => {
+            handleInput();
+        }, [value]);
 
         useEffect(() => {
             const textarea = textareaReference.current;

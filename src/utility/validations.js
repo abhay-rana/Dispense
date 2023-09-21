@@ -7,7 +7,7 @@ export function CheckDuplicatesIndex(inputArray) {
     };
 
     for (let index = 0; index < inputArray.length; index++) {
-        const [address] = inputArray[index].split(' '); // Split the string to get the address
+        const [address] = inputArray[index].split(/[ ,=]+/); // Split by " ", ",", or "=" , extract the address part // Split the string to get the address
         if (addressIndexes[address] === undefined) {
             // If address is not already in the object, add it with the current index
             addressIndexes[address] = [index];
@@ -44,9 +44,17 @@ export function CheckValidAmount(array) {
     };
 
     const indexesOfNonNumericAmounts = array
-        .map((item, index) => (isNumeric(item.split(' ')[1]) ? -1 : index))
+        .map((item, index) => {
+            if (item.includes(' ')) {
+                return isNumeric(item.split(' ')[1]) ? -1 : index;
+            } else if (item.includes('=')) {
+                return isNumeric(item.split('=')[1]) ? -1 : index;
+            } else if (item.includes(',')) {
+                return isNumeric(item.split(',')[1]) ? -1 : index;
+            } else return index;
+        })
         .filter((index) => index !== -1);
-
+    console.log(indexesOfNonNumericAmounts);
     if (indexesOfNonNumericAmounts.length > 0) {
         const error_string = indexesOfNonNumericAmounts.map(
             (item) => `Line ${item + 1} wrong Amount`
@@ -62,7 +70,7 @@ export function KeepFirstAddress(address_amount) {
     const resultArray = [];
 
     for (const item of address_amount) {
-        const address = item.split(' ')[0]; // Extract the address part
+        const address = item.split(/[ ,=]+/)[0]; // Split by " ", ",", or "=" , extract the address part
         if (!uniqueAddresses[address]) {
             uniqueAddresses[address] = true;
             resultArray.push(item);
@@ -74,9 +82,9 @@ export function KeepFirstAddress(address_amount) {
 
 export function CombineAddress(inputArray) {
     const addressMap = new Map();
-
+    console.log(inputArray);
     for (const item of inputArray) {
-        const [address, balance] = item.split(' ');
+        const [address, balance] = item.split(/[ ,=]+/); // Split by " ", ",", or "=" , extract the address part;
         if (addressMap.has(address)) {
             addressMap.set(
                 address,

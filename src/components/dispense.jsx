@@ -35,7 +35,7 @@ const Dispense = () => {
     function onSubmit() {
         const address_array =
             textarea_reference.current.innerHTML.split(/\n/gm);
-
+        console.log('address_array', address_array);
         setAddressAmount(address_array);
         const validation_data = _checkValidations(address_array);
         if (validation_data.error_arr.length > 0) {
